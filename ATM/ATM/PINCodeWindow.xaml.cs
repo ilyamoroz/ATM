@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,25 +8,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ATM
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для PINCodeWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PINCodeWindow : Window
     {
-        public MainWindow()
+        public PINCodeWindow()
         {
             InitializeComponent();
         }
 
-        private void InsertCardButton_Click(object sender, RoutedEventArgs e)
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            PINCodeWindow pinCodeWindow = new PINCodeWindow();
-            pinCodeWindow.ShowDialog();
+            string pin = PINCodeField.Text;
         }
     }
 }
