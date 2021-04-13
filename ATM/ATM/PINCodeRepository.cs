@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Net.Sockets;
 using ATM.DataModel;
 using ATM.Interfaces;
 
@@ -11,9 +13,9 @@ namespace ATM
         {
             _context = context;
         }
-        public string GetCode(int cardID)
+        public int GetCode(int cardID)
         {
-            return _context.PINCodes.Single(x =>x.CardID.CardID == cardID).ToString();
+            return _context.PINCodes.Single(x=>x.CardID == cardID).Code;
         }
     }
 }

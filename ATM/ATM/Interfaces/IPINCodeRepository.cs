@@ -2,6 +2,6 @@
 {
     public interface IPINCodeRepository
     {
-        public string GetCode(int cardID);
+        public int GetCode(int cardID);
     }
 }
