@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ATM.DataModel;
+using ATM.Dependencies;
+using ATM.Interfaces;
+using Autofac;
 
 namespace ATM
 {
@@ -17,14 +22,21 @@ namespace ATM
     /// </summary>
     public partial class PINCodeWindow : Window
     {
+        private IPINCodeRepository codeRepository;
         public PINCodeWindow()
         {
             InitializeComponent();
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["ShopDatabaseContext"];
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<CodeModule>();
+            var container = containerBuilder.Build();
+            codeRepository = container.Resolve<IPINCodeRepository>(new NamedParameter("context", new ATMContext(settings.ConnectionString)));
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
             string pin = PINCodeField.Text;
+
         }
     }
 }
