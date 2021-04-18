@@ -13,9 +13,9 @@ namespace ATM
         {
             _context = context;
         }
-        public int GetCode(int cardID)
+        public string GetCode(int cardID)
         {
-            return _context.PINCodes.Single(x=>x.CardID == cardID).Code;
+            return _context.PINCodes.Single(x=>x.CardID == cardID).Code.ToString();
         }
     }
 }

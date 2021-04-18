@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ATM"
         mc:Ignorable="d"
-        Title="PINCodeWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="EnterButton" Content="Enter" HorizontalAlignment="Left" Margin="455,217,0,0" VerticalAlignment="Top" Height="32" Width="68" Click="EnterButton_Click"/>
-        <TextBox x:Name="PINCodeField" HorizontalAlignment="Left" Margin="215,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        Title="PINCodeWindow" Height="197" Width="375" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,10,-6">
+        <Button x:Name="EnterButton" Content="Enter" HorizontalAlignment="Center" Margin="0,107,0,0" VerticalAlignment="Top" Height="32" Width="68" Click="EnterButton_Click"/>
+        <TextBox x:Name="PINCodeField" HorizontalAlignment="Center" Margin="0,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" Height="28"/>
+        <Label Content="Введите пин-код" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="20"/>
 
     </Grid>
 </Window>

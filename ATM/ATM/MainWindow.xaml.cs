@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ATM.DataModel;
 
 namespace ATM
@@ -39,16 +31,26 @@ namespace ATM
                 context.SaveChanges();
                 PINCode pin = new PINCode();
                 pin.CardID = 1;
-                pin.Code = 1234;
+                pin.Code = GetCodeHash("1234");
                 context.PINCodes.Add(pin);
                 context.SaveChanges();
 
             }
         }
+        public string GetCodeHash(string inputText)
+        {
+            var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(inputText));
+            return Convert.ToBase64String(hash);
+        }
         private void InsertCardButton_Click(object sender, RoutedEventArgs e)
         {
-            PINCodeWindow pinCodeWindow = new PINCodeWindow("1234528415234582");
-            pinCodeWindow.ShowDialog();
+            if (CardNumberField.Text != "")
+            {
+                PINCodeWindow pinCodeWindow = new PINCodeWindow(CardNumberField.Text);
+                pinCodeWindow.ShowDialog();
+            }
+            
         }
     }
 }

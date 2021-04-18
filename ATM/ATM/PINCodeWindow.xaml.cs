@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,12 +46,19 @@ namespace ATM
             var container1 = containerBuilder1.Build();
             cardRepository = container1.Resolve<ICardRepository>(new NamedParameter("context", new ATMContext(settings.ConnectionString)));
         }
+        
+        public string GetCodeHash(string inputText)
+        {
+            var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(inputText));
+            return Convert.ToBase64String(hash);
+        }
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            int pin = Convert.ToInt32(PINCodeField.Text);
+            string pin = PINCodeField.Text;
             if (attempts > 0)
             {
-                if (pin == codeRepository.GetCode(cardRepository.GetCardIDByNumber(_cardNumber)))
+                if (GetCodeHash(pin) == codeRepository.GetCode(cardRepository.GetCardIDByNumber(_cardNumber)))
                 {
                     MessageBox.Show("work");
                 }
