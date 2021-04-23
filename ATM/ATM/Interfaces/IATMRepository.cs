@@ -1,8 +1,8 @@
 ﻿namespace ATM.Interfaces
 {
-    public interface ICardRepository
+    public interface IATMRepository
     {
         public int GetCardIDByNumber(string cardNumber);
-
+        public string GetCode(int cardID);
     }
 }

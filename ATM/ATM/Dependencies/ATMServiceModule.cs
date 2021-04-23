@@ -3,11 +3,11 @@ using Autofac;
 
 namespace ATM.Dependencies
 {
-    public class CodeModule : Module
+    public class ATMServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<PINCodeRepository>().As<IPINCodeRepository>();
+            builder.RegisterType<ATMRepository>().As<IATMRepository>();
         }
     }
 }
