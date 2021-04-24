@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ATM.DataModel;
 using ATM.Dependencies;
 using ATM.Interfaces;
 using Autofac;
-using Autofac.Core;
 
 namespace ATM
 {
@@ -27,7 +17,7 @@ namespace ATM
     {
         private IATMRepository cardAtmRepository;
         private string _cardNumber;
-        private static  int attempts = 3;
+        private static int attempts = 2;
         public PINCodeWindow(string cardNumber)
         {
             InitializeComponent();
@@ -57,15 +47,18 @@ namespace ATM
                 }
                 else
                 {
+                    MessageBox.Show("Wrong PIN-code");
                     attempts--;
-                    PINCodeField.Text = String.Empty;
                 }
             }
             else
             {
                 MessageBox.Show("Sorry, we must snatch your card");
                 //function for snatch a card
+                cardAtmRepository.SetCardToRemote(_cardNumber);
+                this.Close();
             }
+            PINCodeField.Text = String.Empty;
 
         }
     }

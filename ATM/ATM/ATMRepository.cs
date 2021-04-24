@@ -23,5 +23,14 @@ namespace ATM
         {
             return _context.PINCodes.Single(x => x.CardID == cardID).Code.ToString();
         }
+
+        public void SetCardToRemote(string cardNumber)
+        {
+            RemoteCard card = new RemoteCard();
+            card.Number = cardNumber;
+            _context.RemoteCards.Add(card);
+            _context.Cards.Remove(_context.Cards.Single(x => x.Number == cardNumber));
+            _context.SaveChanges();
+        }
     }
 }
