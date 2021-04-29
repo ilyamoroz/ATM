@@ -18,6 +18,7 @@ namespace ATM
         private IATMRepository cardAtmRepository;
         private string _cardNumber;
         private static int attempts = 2;
+        private int _cardId;
         public PINCodeWindow(string cardNumber)
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace ATM
             containerBuilder.RegisterModule<ATMServiceModule>();
             var container = containerBuilder.Build();
             cardAtmRepository = container.Resolve<IATMRepository>(new NamedParameter("context", new ATMContext(settings.ConnectionString)));
+            _cardId = cardAtmRepository.GetCardIDByNumber(_cardNumber);
         }
         
         public string GetCodeHash(string inputText)
@@ -41,9 +43,12 @@ namespace ATM
             string pin = PINCodeField.Text;
             if (attempts > 0)
             {
-                if (GetCodeHash(pin) == cardAtmRepository.GetCode(cardAtmRepository.GetCardIDByNumber(_cardNumber)))
+                if (GetCodeHash(pin) == cardAtmRepository.GetCode(_cardId))
                 {
-                    MessageBox.Show("work");
+                    
+                    ATM_Window atmWindow = new ATM_Window(_cardId);
+                    atmWindow.Show();
+                    this.Close();
                 }
                 else
                 {

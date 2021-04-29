@@ -11,6 +11,7 @@ namespace ATM.DataModel
         public DbSet<Card> Cards { get; set; }
         public DbSet<PINCode> PINCodes { get; set; }
         public DbSet<RemoteCard> RemoteCards { get; set; }
+        public DbSet<CardCash> CardCash { get; set; }
 
     }
 }

@@ -30,7 +30,7 @@ namespace ATM
                 context.Cards.Add(card);
                 context.SaveChanges();
                 PINCode pin = new PINCode();
-                pin.CardID = 4;
+                pin.CardID = 1;
                 pin.Code = GetCodeHash("1234");
                 context.PINCodes.Add(pin);
                 context.SaveChanges();
@@ -48,7 +48,9 @@ namespace ATM
             if (CardNumberField.Text != "")
             {
                 PINCodeWindow pinCodeWindow = new PINCodeWindow(CardNumberField.Text);
-                pinCodeWindow.ShowDialog();
+                pinCodeWindow.Show();
+                this.Close();
+
             }
             
         }

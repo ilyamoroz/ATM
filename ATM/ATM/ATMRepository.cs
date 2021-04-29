@@ -14,6 +14,12 @@ namespace ATM
         {
             _context = context;
         }
+
+        public string GetBalanse(int CardId)
+        {
+            return _context.CardCash.Single(x => x.CardID == CardId).Cash.ToString();
+        }
+
         public int GetCardIDByNumber(string cardNumber)
         {
             return _context.Cards.Single(x => x.Number == cardNumber).CardID;
